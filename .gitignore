@@ -1,0 +1,4 @@
+# Godot 4+ specific ignores
+Project/.godot/
+Source
+.vscode/settings.json
