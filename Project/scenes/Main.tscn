@@ -1,0 +1,125 @@
+[gd_scene load_steps=13 format=3 uid="uid://rbacli0cdy8x"]
+
+[ext_resource type="PackedScene" uid="uid://dl2ed4gkybggf" path="res://objects/Player.tscn" id="1_pt2y1"]
+[ext_resource type="Script" path="res://scripts/HUD.cs" id="2_c3oc1"]
+[ext_resource type="PackedScene" uid="uid://dm521bdnruf6f" path="res://objects/Enemy.tscn" id="2_d8v70"]
+[ext_resource type="PackedScene" uid="uid://r7rt7pth4u7o" path="res://objects/WallLow.tscn" id="3_224on"]
+[ext_resource type="Resource" uid="uid://c56y8pqoyk15f" path="res://weapons/blaster.tres" id="3_vis57"]
+[ext_resource type="PackedScene" uid="uid://dpm3l05d7fu35" path="res://objects/Platform.tscn" id="4_fowq7"]
+[ext_resource type="Resource" uid="uid://cu2gtxlcmbb34" path="res://weapons/blaster-repeater.tres" id="4_i61ca"]
+[ext_resource type="PackedScene" uid="uid://c71evdjblk5wp" path="res://objects/WallHigh.tscn" id="5_78nij"]
+[ext_resource type="PackedScene" uid="uid://bvx5cvigosg0s" path="res://objects/PlatformLargeGrass.tscn" id="6_hnu7h"]
+[ext_resource type="FontFile" uid="uid://biqtga8moh7ah" path="res://fonts/lilita_one_regular.ttf" id="7_w27de"]
+[ext_resource type="Environment" uid="uid://jvmpkdwaeaq" path="res://scenes/main-environment.tres" id="8_q8fpv"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_fpmwk"]
+font = ExtResource("7_w27de")
+font_size = 36
+outline_size = 12
+outline_color = Color(0, 0, 0, 0.470588)
+
+[node name="Main" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource("8_q8fpv")
+
+[node name="Player" parent="." node_paths=PackedStringArray("Crosshair") instance=ExtResource("1_pt2y1")]
+Weapons = [ExtResource("3_vis57"), ExtResource("4_i61ca")]
+Crosshair = NodePath("../HUD/Crosshair")
+
+[node name="Sun" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.422618, -0.694272, 0.582563, 0, 0.642788, 0.766044, -0.906308, 0.323744, -0.271654, 0, 0, 0)
+shadow_enabled = true
+shadow_opacity = 0.75
+
+[node name="HUD" type="CanvasLayer" parent="."]
+script = ExtResource("2_c3oc1")
+
+[node name="Crosshair" type="TextureRect" parent="HUD"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.35, 0.35)
+pivot_offset = Vector2(64, 64)
+
+[node name="Health" type="Label" parent="HUD"]
+offset_left = 31.0
+offset_top = 579.0
+offset_right = 121.0
+offset_bottom = 624.0
+size_flags_horizontal = 0
+size_flags_vertical = 8
+text = "100%"
+label_settings = SubResource("LabelSettings_fpmwk")
+vertical_alignment = 2
+
+[node name="Enemies" type="Node" parent="."]
+
+[node name="Enemy" parent="Enemies" node_paths=PackedStringArray("Player") instance=ExtResource("2_d8v70")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.5, 2.5, -6)
+Player = NodePath("../../Player")
+
+[node name="Enemy2" parent="Enemies" node_paths=PackedStringArray("Player") instance=ExtResource("2_d8v70")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -9.5, 2.5, 1.5)
+Player = NodePath("../../Player")
+
+[node name="Enemy3" parent="Enemies" node_paths=PackedStringArray("Player") instance=ExtResource("2_d8v70")]
+transform = Transform3D(-0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, -0.707107, 5.5, 3.5, 9)
+Player = NodePath("../../Player")
+
+[node name="Enemy4" parent="Enemies" node_paths=PackedStringArray("Player") instance=ExtResource("2_d8v70")]
+transform = Transform3D(0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, 15.5, 4, -7.5)
+Player = NodePath("../../Player")
+
+[node name="Level" type="Node" parent="."]
+
+[node name="WallLow" parent="Level" instance=ExtResource("3_224on")]
+transform = Transform3D(0.965926, 0, 0.258819, 0, 1, 0, -0.258819, 0, 0.965926, -1.92088, 1.05, -6.90166)
+
+[node name="WallLow2" parent="Level" instance=ExtResource("3_224on")]
+transform = Transform3D(-1, 0, -1.19209e-07, 0, 1, 0, 1.19209e-07, 0, -1, 6.07912, 1.05, 6.59834)
+
+[node name="Platform" parent="Level" instance=ExtResource("4_fowq7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 0, 6.5)
+
+[node name="Platform2" parent="Level" instance=ExtResource("4_fowq7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.5, 2.5, -2.5)
+
+[node name="Platform3" parent="Level" instance=ExtResource("4_fowq7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 3, -3.5)
+
+[node name="Platform4" parent="Level" instance=ExtResource("4_fowq7")]
+transform = Transform3D(0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, 7, 1, -2)
+
+[node name="WallHigh" parent="Level" instance=ExtResource("5_78nij")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.5, 1.5, 4)
+
+[node name="WallHigh2" parent="Level" instance=ExtResource("5_78nij")]
+transform = Transform3D(0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, 11.5, 3, -5.5)
+
+[node name="PlatformLargeGrass" parent="Level" instance=ExtResource("6_hnu7h")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+
+[node name="PlatformLargeGrass2" parent="Level" instance=ExtResource("6_hnu7h")]
+transform = Transform3D(0.965926, 0, 0.258819, 0, 1, 0, -0.258819, 0, 0.965926, -2, 0.5, -6)
+
+[node name="PlatformLargeGrass3" parent="Level" instance=ExtResource("6_hnu7h")]
+transform = Transform3D(0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, 0.965926, -6, 1, 2.5)
+
+[node name="PlatformLargeGrass4" parent="Level" instance=ExtResource("6_hnu7h")]
+transform = Transform3D(0.866026, 0, -0.5, 0, 1, 0, 0.5, 0, 0.866026, 12, 2.5, -5)
+
+[node name="PlatformLargeGrass5" parent="Level" instance=ExtResource("6_hnu7h")]
+transform = Transform3D(0.965926, 0, 0.258819, 0, 1, 0, -0.258819, 0, 0.965926, 5, 0.5, 5.5)
+
+[node name="Decoration" type="Node" parent="."]
+
+[connection signal="HealthUpdated" from="Player" to="HUD" method="_OnHealthUpdate"]

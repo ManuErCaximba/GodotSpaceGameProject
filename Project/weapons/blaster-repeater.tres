@@ -1,0 +1,22 @@
+[gd_resource type="Resource" load_steps=5 format=3 uid="uid://cu2gtxlcmbb34"]
+
+[ext_resource type="Texture2D" uid="uid://ce3lgq7foiusl" path="res://sprites/crosshair-repeater.png" id="1_hoqei"]
+[ext_resource type="Script" path="res://scripts/Weapon.cs" id="1_l1atd"]
+[ext_resource type="PackedScene" uid="uid://dd3oln1ucgqpd" path="res://models/blaster-repeater.glb" id="2_h64nv"]
+[ext_resource type="SpriteFrames" uid="uid://dbv3sy5qjatnl" path="res://sprites/burst_animation.tres" id="3_x0ovn"]
+
+[resource]
+script = ExtResource("1_l1atd")
+Model = ExtResource("2_h64nv")
+Position = Vector3(0, 0, 0)
+Rotation = Vector3(0, 180, 0)
+Muzzle = ExtResource("3_x0ovn")
+MuzzlePosition = Vector3(-0.5, 0.2, 2)
+Cooldown = 0.1
+MaxDistance = 10
+Damage = 25
+Spread = 0
+ShotCount = 1
+Knockback = 5
+SoundShoot = "sounds/blaster_repeater.ogg"
+Crosshair = ExtResource("1_hoqei")

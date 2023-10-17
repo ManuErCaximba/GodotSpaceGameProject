@@ -1,0 +1,40 @@
+[gd_scene load_steps=4 format=3 uid="uid://dl2ed4gkybggf"]
+
+[ext_resource type="Script" path="res://objects/Player.cs" id="1_e4la6"]
+[ext_resource type="AudioStream" uid="uid://cydjn1ct3hps2" path="res://sounds/walking.ogg" id="3_ics1s"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_qcnug"]
+radius = 0.3
+height = 1.0
+
+[node name="Player" type="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+script = ExtResource("1_e4la6")
+
+[node name="Collider" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55, 0)
+shape = SubResource("CapsuleShape3D_qcnug")
+
+[node name="Head" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="Camera" type="Camera3D" parent="Head"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.165, 0)
+current = true
+fov = 80.0
+
+[node name="RayCast" type="RayCast3D" parent="Head/Camera"]
+exclude_parent = false
+target_position = Vector3(0, 0, -10)
+collide_with_areas = true
+
+[node name="Container" type="Node3D" parent="Head/Camera"]
+transform = Transform3D(-0.05, 0, -7.54979e-09, 0, 0.05, 0, 7.54979e-09, 0, -0.05, 0.0668786, -0.0689254, -0.0787394)
+
+[node name="SoundFootsteps" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_ics1s")
+volume_db = -5.0
+autoplay = true
+
+[node name="Cooldown" type="Timer" parent="."]
+one_shot = true
